@@ -7,21 +7,29 @@ import javax.swing.*;
 
 public class LoadImage {
 	BufferedImage img;
+	int height;
+	int width;
+	
+	public LoadImage(){
+		img=null;
+		height=width=0;
+	}
 	public LoadImage(String file){
 		try {
 			img = ImageIO.read(new File(file));
+			height = img.getHeight();
+			width = img.getWidth();
 		} catch (IOException e){
 			
 		}
 	}
 	
+	//Conversion d'une image en tableau d'entiers. Attention aux indices!
 	public int[][] imgToIntMatrix(){
-		int h = img.getHeight();
-		int w = img.getWidth();
-		int[][] res = new int[h][w];
+		int[][] res = new int[height][width];
 		Raster raster = img.getData();
-		for (int i=0;i<h;i++){
-			for (int j=0;j<w;j++){
+		for (int i=0;i<height;i++){
+			for (int j=0;j<width;j++){
 				res[i][j]=raster.getSample(j,i,0);
 			}
 		}
@@ -29,7 +37,7 @@ public class LoadImage {
 	}
 	
 	public static void main(String[] args){
-		LoadImage square = new LoadImage("src/carre.png");
+		LoadImage square = new LoadImage("src/a.png");
 		int w = square.img.getWidth();
 		int h = square.img.getHeight();
 		int [][] tmp = square.imgToIntMatrix();
