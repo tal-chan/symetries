@@ -24,7 +24,10 @@ public class LoadImage {
 		}
 	}
 	
-	//Conversion d'une image en tableau d'entiers. Attention aux indices!
+	/**
+	 * Conversion d'une image en tableau d'entiers. Attention aux indices!
+	 * @return
+	 */
 	public int[][] imgToIntMatrix(){
 		int[][] res = new int[height][width];
 		Raster raster = img.getData();
