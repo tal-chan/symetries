@@ -28,7 +28,7 @@ public class Droite {
 	}
 	
 	public String toString() {
-		return "(" + r + "," + cosTheta + "," + sinTheta + ")";
+		return "(r = " + r + ", cosTheta = " + cosTheta + ", sinTheta = " + sinTheta + ")";
 	}
 
 }
