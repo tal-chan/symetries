@@ -12,7 +12,7 @@ public class Droite {
 	}
 
 	/**
-	 * Droite Médiatrice
+	 * Droite Mediatrice
 	 * @param p1 point1
 	 * @param p2 point2
 	 */

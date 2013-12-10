@@ -6,7 +6,7 @@ public class Point {
 	}
 
 	/**
-	 * Pixel de l'image: coordonnées discretes
+	 * Pixel de l'image: coordonnees discretes
 	 * @param x 
 	 * @param y (attention, y vers le bas)
 	 */
