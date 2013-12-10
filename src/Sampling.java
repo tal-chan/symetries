@@ -9,9 +9,9 @@ import javax.imageio.ImageIO;
 
 
 public class Sampling {
-	LoadImage img;
-	Point[] points;
-	int size;
+	LoadImage img; // image to sample from
+	Point[] points; //sampled points
+	int size; // number of points sampled
 	
 	public Sampling(LoadImage image, int n){
 		img=image;
