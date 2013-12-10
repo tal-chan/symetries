@@ -1,3 +1,4 @@
+import java.awt.image.BufferedImage;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -19,6 +20,10 @@ public class PRST {
 		sample.compute();
 		prst = new HashMap<Droite,Double>();
 		max = 0.;
+	}
+	
+	public BufferedImage getImage(){
+		return sample.img.img;
 	}
 	
 	public void compute(){

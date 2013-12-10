@@ -35,15 +35,15 @@ public class Droite {
 		this.r =  this.cosTheta * xMilieu - this.sinTheta * yMilieu;	
 	}
 	
-	public int[] toPoints () {
+	public int[] toCoordinates () {
 		int x = (int) (r*cosTheta);
-		int y = (int) (r*sinTheta);
+		int y =  -(int) (r*sinTheta);
 		if(sinTheta!=0.){
-			int[]t={x,y,x+200,(int)(y+cosTheta/sinTheta*200)};;
+			int[]t={x,y,x+400,(int)(y+cosTheta/sinTheta*400)};;
 			return t;
 			
 		}
-		int t[] = {x,y,x,y+200};
+		int t[] = {x,y-200,x,y+200};
 		return t;
 		
 	}
