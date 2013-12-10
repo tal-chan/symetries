@@ -21,7 +21,7 @@ public class BasicFrame extends JFrame {
 	 */
 	public void paint(Graphics g) {
 
-		Point p1 = new Point(220, 52);
+		/*Point p1 = new Point(220, 52);
 		Point p2 = new Point(255, 200);
 		
 		System.out.println("Point 1: " + p1.toString());
@@ -36,17 +36,18 @@ public class BasicFrame extends JFrame {
 
 		g.setColor(Color.BLACK);
 		g.drawLine((int) (d.r * d.sinTheta), (int) (d.r * d.cosTheta), (p1.x + p2.x) / 2, (p1.y + p2.y) / 2); // normale
-
-	/*	String file = "src/carre.png";
+*/
+		String file = "src/carre.png";
 		PRST square = new PRST(file,50);
 		square.compute();
 		Droite d = square.principal;
 		int[] t = d.toPoints();
-		g.setColor(Color.RED);
+		//g.setColor(Color.RED);
+		g.drawImage(square.sample.img.img, 0, 0, null);
 		g.drawLine(t[0], t[1], t[2], t[3]);
-		g.setColor(Color.BLACK);
+		//g.setColor(Color.BLACK);
 		System.out.println("x1 = "+t[0]+" y1 = "+t[1]+" x2 = "+t[2]+" y2 = "+t[3]);
-		System.out.println(d.toString());*/
+		System.out.println(d.toString());
 
 	}
 

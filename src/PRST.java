@@ -36,6 +36,7 @@ public class PRST {
 				Droite paquet = new Droite (r,Math.sin(theta),Math.cos(theta));
 				//System.out.println(paquet.toString());
 				double d = pts[i].distanceFrom(pts[j]);
+				if (d==0.){break;}
 				if (prst.containsKey(paquet)){
 					double v = prst.get(paquet);
 					v+= 1/(2*d*n);
@@ -57,7 +58,7 @@ public class PRST {
 	}
 	public static void main (String[] args){
 		String file = "src/carre.png";
-		PRST square = new PRST(file,50);
+		PRST square = new PRST(file,100);
 		square.compute();
 		System.out.println(square.principal.toString());
 		
