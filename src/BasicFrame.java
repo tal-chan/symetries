@@ -21,19 +21,23 @@ public class BasicFrame extends JFrame {
 	 */
 	public void paint(Graphics g) {
 
-		/*Point p1 = new Point(20, 152);
-		Point p2 = new Point(155, 200);
+		Point p1 = new Point(220, 52);
+		Point p2 = new Point(255, 200);
 		
 		System.out.println("Point 1: " + p1.toString());
 		System.out.println("Point 2: " + p2.toString());
 
 		Droite d = new Droite(p1, p2);
 		System.out.println("Segment p1 - p2 : " + d.toString());
+
+		g.setColor(Color.RED);
 		g.drawLine(p1.x, p1.y, p2.x, p2.y); // Segment p1 - p2
 		
-		g.drawLine((int) (d.r * d.cosTheta), (int) (d.r * d.sinTheta), (p1.x + p2.x) / 2, (p1.y + p2.y) / 2); // normale
-*/
-		String file = "src/carre.png";
+
+		g.setColor(Color.BLACK);
+		g.drawLine((int) (d.r * d.sinTheta), (int) (d.r * d.cosTheta), (p1.x + p2.x) / 2, (p1.y + p2.y) / 2); // normale
+
+	/*	String file = "src/carre.png";
 		PRST square = new PRST(file,50);
 		square.compute();
 		Droite d = square.principal;
@@ -42,7 +46,7 @@ public class BasicFrame extends JFrame {
 		g.drawLine(t[0], t[1], t[2], t[3]);
 		g.setColor(Color.BLACK);
 		System.out.println("x1 = "+t[0]+" y1 = "+t[1]+" x2 = "+t[2]+" y2 = "+t[3]);
-		System.out.println(d.toString());
+		System.out.println(d.toString());*/
 
 	}
 
