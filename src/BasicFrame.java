@@ -38,7 +38,9 @@ public class BasicFrame extends JFrame {
 		square.compute();
 		Droite d = square.principal;
 		int[] t = d.toPoints();
+		g.setColor(Color.RED);
 		g.drawLine(t[0], t[1], t[2], t[3]);
+		g.setColor(Color.BLACK);
 		System.out.println("x1 = "+t[0]+" y1 = "+t[1]+" x2 = "+t[2]+" y2 = "+t[3]);
 		System.out.println(d.toString());
 
