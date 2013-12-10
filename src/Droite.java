@@ -32,7 +32,7 @@ public class Droite {
 		// droite d'equation ax + by + c = 0 (a = cosTheta, b = sinTheta, c = r cherché)
 		double xMilieu = (((double)p2.getX()) + p1.getX())/2;
 		double yMilieu = (((double)p2.getY()) + p1.getY())/2;
-		this.r = - this.cosTheta * xMilieu - this.sinTheta * yMilieu;	
+		this.r =  this.cosTheta * xMilieu - this.sinTheta * yMilieu;	
 	}
 	
 	public int[] toPoints () {
