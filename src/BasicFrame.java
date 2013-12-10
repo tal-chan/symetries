@@ -21,7 +21,7 @@ public class BasicFrame extends JFrame {
 	 */
 	public void paint(Graphics g) {
 
-		Point p1 = new Point(20, 152);
+		/*Point p1 = new Point(20, 152);
 		Point p2 = new Point(155, 200);
 		
 		System.out.println("Point 1: " + p1.toString());
@@ -32,7 +32,15 @@ public class BasicFrame extends JFrame {
 		g.drawLine(p1.x, p1.y, p2.x, p2.y); // Segment p1 - p2
 		
 		g.drawLine((int) (d.r * d.cosTheta), (int) (d.r * d.sinTheta), (p1.x + p2.x) / 2, (p1.y + p2.y) / 2); // normale
-
+*/
+		String file = "src/carre.png";
+		PRST square = new PRST(file,50);
+		square.compute();
+		Droite d = square.principal;
+		int[] t = d.toPoints();
+		g.drawLine(t[0], t[1], t[2], t[3]);
+		System.out.println("x1 = "+t[0]+" y1 = "+t[1]+" x2 = "+t[2]+" y2 = "+t[3]);
+		System.out.println(d.toString());
 
 	}
 
@@ -45,7 +53,7 @@ public class BasicFrame extends JFrame {
 		// Use the setSize method that our BasicFrame
 		// object inherited to make the frame
 		// 200 pixels wide and high.
-		frame.setSize(200, 200);
+		frame.setSize(300, 300);
 
 		// Make the window show on the screen.
 		frame.setVisible(true);

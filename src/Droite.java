@@ -27,6 +27,19 @@ public class Droite {
 		this.r = Math.abs(- this.cosTheta * xMilieu - this.sinTheta * yMilieu);		
 	}
 	
+	public int[] toPoints () {
+		int x = (int) (r*cosTheta);
+		int y = (int) (r*sinTheta);
+		if(sinTheta!=0.){
+			int[]t={x,y,x+200,(int)(y+cosTheta/sinTheta*200)};;
+			return t;
+			
+		}
+		int t[] = {x,y,x,y+200};
+		return t;
+		
+	}
+	
 	public String toString() {
 		return "(r = " + r + ", cosTheta = " + cosTheta + ", sinTheta = " + sinTheta + ")";
 	}
