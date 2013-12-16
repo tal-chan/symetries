@@ -27,7 +27,7 @@ public class Droite {
 			this.sinTheta = - this.sinTheta;
 		}
 		
-		System.out.println(cosTheta*cosTheta+sinTheta*sinTheta);
+		//System.out.println(cosTheta*cosTheta+sinTheta*sinTheta);
 		
 		// droite d'equation ax + by + c = 0 (a = cosTheta, b = sinTheta, c = r cherché)
 		double xMilieu = (((double)p2.getX()) + p1.getX())/2;

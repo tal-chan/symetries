@@ -38,7 +38,7 @@ public class PRST {
 				double theta = Math.asin(mediatrice.sinTheta);
 				double k = Math.floor(N*theta/(2*Math.PI));
 				theta = 2*k*Math.PI/N;
-				Droite paquet = new Droite (r,Math.sin(theta),Math.cos(theta));
+				Droite paquet = new Droite (r,Math.cos(theta),Math.sin(theta));
 				//System.out.println(paquet.toString());
 				double d = pts[i].distanceFrom(pts[j]);
 				if (d==0.){break;}
@@ -65,7 +65,7 @@ public class PRST {
 		String file = "src/carre.png";
 		PRST square = new PRST(file,100);
 		square.compute();
-		System.out.println(square.principal.toString());
+		//System.out.println(square.principal.toString());
 		
 	}
 }

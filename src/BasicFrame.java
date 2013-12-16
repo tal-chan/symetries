@@ -40,7 +40,7 @@ public class BasicFrame extends JFrame {
                 //g.drawLine((int) (d.r * d.cosTheta), -(int) (d.r * d.sinTheta), (p1.x + p2.x) / 2, (p1.y + p2.y) / 2); // normale
 
                 String file = "src/carre.png";
-                PRST square = new PRST(file,50);
+                PRST square = new PRST(file,500);
                 square.compute();
                 Droite d = square.principal;
                 int[] t = d.toCoordinates();
