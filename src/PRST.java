@@ -60,12 +60,18 @@ public class PRST {
 				}
 			}
 		}
+		for (Droite d : prst.keySet()){
+			prst.put(d, (1+prst.get(d))/2);
+		}
+		
 	}
 	public static void main (String[] args){
 		String file = "src/carre.png";
-		PRST square = new PRST(file,100);
+		PRST square = new PRST(file,500);
 		square.compute();
-		//System.out.println(square.principal.toString());
+		for (Double d : square.prst.values()){
+			System.out.println(d);
+		}
 		
 	}
 }

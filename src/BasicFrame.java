@@ -38,9 +38,8 @@ public class BasicFrame extends JFrame {
                 int [] t = d.toCoordinates();
                 g.drawLine(t[0], t[1], t[2], t[3]);*/
                 //g.drawLine((int) (d.r * d.cosTheta), -(int) (d.r * d.sinTheta), (p1.x + p2.x) / 2, (p1.y + p2.y) / 2); // normale
-
-                String file = "src/carre.png";
-                PRST square = new PRST(file,500);
+        		String file = "src/carre.png";
+                PRST square = new PRST(file,1000);
                 square.compute();
                 Droite d = square.principal;
                 int[] t = d.toCoordinates();
