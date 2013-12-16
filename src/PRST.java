@@ -1,4 +1,6 @@
 import java.awt.image.BufferedImage;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -69,8 +71,18 @@ public class PRST {
 		String file = "src/carre.png";
 		PRST square = new PRST(file,500);
 		square.compute();
-		for (Double d : square.prst.values()){
-			System.out.println(d);
+		
+		try {
+			FileWriter fichier = new FileWriter("log.txt");
+			fichier.write("\n Début du fichier de log");
+			for (Double d : square.prst.values()){
+				fichier.write("\n"+d);
+				System.out.println(d);
+			}
+			fichier.write("\n Fin du fichier de log");
+			fichier.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		
 	}
