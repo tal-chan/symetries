@@ -31,58 +31,59 @@
 \input{une}
 \newpage
 \tableofcontents
+
 \newpage
-
-\textbf{CE QU'ON EST SUPPOSEES FAIRE}: \\
-A short (4-6) page report about your work.
-The main idea behind doing a project is to expose you to current research in geometric modeling and shape analysis. Therefore, you should try to do something that either involves a recent technique or analyze a theoretical result. Your project should include some amount of independent work, either by implementing a technique and showing its performance on some examples not included by the authors, or by doing some independent theoretical analysis.
-
 	
 	\section*{Introduction}
 \addcontentsline{toc}{section}{Introduction}
-
-	\begin{description}	
-  \item[Symmetry everywhere]:
   
-	A lot of 3D shapes, whether natural or man-made, present some kind of symmetry that can be really useful in 3D geometry.  Indeed symmetries allow certain economy, especially in digital representation, but they are also involved in pattern recognition.\\ ... DEVELOP \\
+	A lot of 3D shapes, whether natural or man-made, present some kind of symmetry that can be really useful in computer vision and 3D geometry.  Indeed symmetries allow certain economy, especially in digital representation, but they are also involved in pattern recognition or geometry completion. Thus, numerous methods are used to detect symmetries, partly because of the diversity of datas (point clouds, polygon meshes, NURBS, patches, etc.).
+	
+	
+between existing methods to gain a better understanding of a fundamental problem in digital geometry processing
+and shape understanding in general. We discuss a variety of applications in computer graphics and geometry
+that benefit from symmetry information for more effective processing. An analysis of the strengths and limitations
+of existing algorithms highlights the plenitude of opportunities for future research both in terms of theory and
+applications.
   
-  \item[State of the art]:
-   \begin{itemize}
-  \item  1st  paper
-  \item paper we chose
-  \end{itemize}
-  \end{description}
-
-	\section{Our work}
+ 
+	\section{A Planar-Reflective Symmetry Transform for 3D Shapes}
 	
-	\subsection{Choice of the paper:  A Planar-Reflective Symmetry Transform for 3D Shapes}
+		%TODO delete before saving
+	\textit{· 1 page description of the method you're implementing. (A Planar-Reflective Symmetry Transform for 3D Shapes paper) It goes without saying that you shouldn't copy text from the paper, but rather describe in your own words what the method is trying to do and how it does it. \\}
 	
-	bla bla intéressant bla bla Monte Carlo bla bla évite brute force, sélection intelligente selon l'énergie de la fonction
+	We chose to try to implement the planar reflective symmetry transform (PRST) described by Podolak et al. ~\cite{Podolak:2006:APS}.
 	
-	\subsection{Work produced}
+	Monte Carlo bla bla évite brute force, sélection intelligente selon l'énergie de la fonction
 	
-	a word about the code, the structure (classes, ..) and comments about the (strategic) choices
+	\section{Our implementation}
 	
-	\begin{description}	
-  \item[LoadImage]: Used to read the pictures and convert them to a better format
- \item[Sampling]: The sampling is performed according to the energy in the function f, allowing us
-to focus effort on computations that will contribute to the final answer
- \item[geometry classes (Droite, Point)]: Used to represent lines and points, find the bisection line ...
- \item[PRST]: Computes the PRST itself
- \item[BasicFrame]: Shows the points/lines, mostly for a debug purpose
- \end{description}
-	  
-  	\section{Comments on the paper}
+	%TODO delete before saving
+	\textit{· 2 page description of your implementation. Here you should describe the main building blocks of your implementation. We are especially interested in: whether you had any problems, whether there were things not mentioned in the paper that you had to discover or derive yourself (be very explicit about your own work!), whether you used any external libraries, etc. What we're not interested in: what are the names of your classes and variables, what operating system you were using, if you had to change some header files, etc. Whenever possible (which is most of the time), please try to use images instead of text to explain concepts.\\
+	Your project should include some amount of independent work, either by implementing a technique and showing its performance on some examples not included by the authors, or by doing some independent theoretical analysis.\\}
 
 	\subsection{Adjustments for 2D}
 	
-the	polar issue, etc...
+the	polar issue, formulas different, etc...
   	
   	\subsection{Choice of the 1/N factor in the calculus of D}
   	
   	explain that it comes out of the blue ...
+  	
+  	\section{Results}
+  		%TODO delete before saving
+\textit{· 1.5-2 pages of results. Show (especially in, graphs, screenshots, etc.) the results that you have obtained. Comment on discrepancies (if any) with the results shown in the paper. Comment on whether you had to tweak parameters to get good results and, if so, how you picked them.\\}
+
+	\section{Possible extensions}
+	
+\textit{· 0.5-1 pages of possible extensions. Can you suggest how the method can be improved? Can you suggest other application domains for your method?\\}
 
 	\section*{Conclusion}
 \addcontentsline{toc}{section}{Conclusion}
+
+\addcontentsline{toc}{section}{References} 
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{bibli}
 		
 \end{document}
