@@ -1,5 +1,8 @@
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -110,44 +113,51 @@ public class PRST {
 		int N = 8;
 				
 		for (int i=0;i<n;i++){//System.out.println(i);
-            switch(i%10){
-            	case 0: g.setColor(Color.black);         	break;
-            	case 1: g.setColor(Color.black);         	break;
-            	case 2: g.setColor(Color.black);         	break;
-            	case 3: g.setColor(Color.black);         	break;
-            	case 4: g.setColor(Color.black);         	break;
-            	case 5: g.setColor(Color.magenta);         	break;
-            	case 6: g.setColor(Color.magenta);         	break;
-            	case 7: g.setColor(Color.magenta);         	break;
-            	case 8: g.setColor(Color.magenta);         	break;
-            	case 9: g.setColor(Color.magenta);         	break;
-            }
-			
-            Object o=new Object();
-            try
-            {
-                synchronized(o) { o.wait(50); }
-            }
-            catch(InterruptedException e) { }
-            
 			for (int j=0;j<i;j++){
+				
+				
+			     switch((i+j)%10){
+	            	case 0: g.setColor(Color.black);         	break;
+	            	case 1: g.setColor(Color.yellow);         	break;
+	            	case 2: g.setColor(Color.blue);         	break;
+	            	case 3: g.setColor(Color.cyan);         	break;
+	            	case 4: g.setColor(Color.green);         	break;
+	            	case 5: g.setColor(Color.magenta);         	break;
+	            	case 6: g.setColor(Color.gray);         	break;
+	            	case 7: g.setColor(Color.orange);         	break;
+	            	case 8: g.setColor(Color.pink);         	break;
+	            	case 9: g.setColor(Color.red);         		break;
+	            }
+	            Object o=new Object();
+	            try
+	            {
+	                synchronized(o) { o.wait(2000); }
+	            }
+	            catch(InterruptedException e) { }
+				
 				Droite mediatrice = new Droite(pts[i],pts[j]);
+				
+				Graphics2D g2 = (Graphics2D)g;
+				Stroke s = g2.getStroke();
+				// trait épais
+				g2.setStroke(new BasicStroke(8));
+				g.drawLine(pts[i].x, pts[i].y,pts[i].x, pts[i].y);
+				g.drawLine(pts[j].x, pts[j].y,pts[j].x, pts[j].y);
+				// retour au trait "normal"
+				g2.setStroke(s);
+				
 				int r = (int) Math.round(mediatrice.r);
 				// les angles des droites sont entre -pi/2 et pi/2, un simple asin suffit pour recuperer l'angle.
 				double theta = Math.asin(mediatrice.sinTheta);
 				double k = Math.round(N*theta/(2*Math.PI));
 				theta = 2*k*Math.PI/N;
 				Droite paquet = new Droite (r,Math.cos(theta),Math.sin(theta));
-				//mediatrice.draw(g);
-                //g.setColor(Color.RED);
-               // g.drawImage(square.getImage(), 0, 0, null);
-                
+				
+				paquet.draw(g);
+				
                // g.setColor(Color.BLACK);
              //   System.out.println("x1 = "+t[0]+" y1 = "+t[1]+" x2 = "+t[2]+" y2 = "+t[3]);
              //   System.out.println(paquet.toString());
-				
-				
-				// System.out.println(paquet.toString());
 				double d = pts[i].distanceFrom(pts[j]);
 				if (d==0.){break;}
 				//System.out.println(d);
