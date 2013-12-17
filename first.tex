@@ -6,6 +6,7 @@
 \usepackage{lastpage}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{amsfonts,amssymb}
 % Mise en page
 \usepackage{geometry}
 \geometry{a4paper,twoside,left=2.5cm,right=2.5cm,top=2.8cm,bottom=2.8cm} %taille et marges
@@ -54,9 +55,18 @@
 	\textit{· 2 page description of your implementation. Here you should describe the main building blocks of your implementation. We are especially interested in: whether you had any problems, whether there were things not mentioned in the paper that you had to discover or derive yourself (be very explicit about your own work!), whether you used any external libraries, etc. What we're not interested in: what are the names of your classes and variables, what operating system you were using, if you had to change some header files, etc. Whenever possible (which is most of the time), please try to use images instead of text to explain concepts.\\
 	Your project should include some amount of independent work, either by implementing a technique and showing its performance on some examples not included by the authors, or by doing some independent theoretical analysis.\\}
 
-	
+	\subsection {Conventions et Notations}
+Image = tableau de pixel en nuances de gris, f (x) = 255 - intensité en x, orientation des axes et des angles, etc.
+
 	\subsection{Sampling}
-In order to compute the PRST using the Monte Carlo algorithm for sparse functions, we first perform an importance sampling of points in the image, using $f(x)$ (normalized) as the probability density of selecting $x$.
+In order to compute the PRST using the Monte Carlo algorithm for sparse functions, we first perform an importance sampling of points in the image, using $f(x)$ (normalized) as the probability density of selecting $x$. For this, we use the cumulative sum of pixel values over the image as the cumulative distribution function and perform an inverse transform sampling. Usually, this method works by generating a real number $u$ in range [0,1] and computing $F^{-1}(u)$, where $F$ is a cumulative distribution function. Here, we adapted the method to work with non-normalized integer functions :
+\begin{enumerate}
+\item Generate a random integer n in range $[0,max_F]$, where $F$ is the cumulative sum of pixel values and $max_F$ its maximum value;
+\item Let $p_1,...,p_N$ be the pixels of the image, compute $i=\inf\{m\in \mathbb{N}, m\leq N |  F(p_m) = n\}$;
+\item Add $p_m$ to the sample.
+\end{enumerate}
+
+
 
 	\subsection{Adjustments for 2D}
 	
@@ -89,14 +99,10 @@ Therefore, the Jacobian is
 and so the determinant is
 \[w_{change-of-variables} = |J| = 2d.\]
 
+  	\subsection{Comments}
+  	Choice of the 1/N factor in the calculus of D : explain that it comes out of the blue ... \\
   	
-  	\subsection{Choice of the 1/N factor in the calculus of D}
-  	
-  	explain that it comes out of the blue ... \\
-  	
-  	\subsection{ non borné}
-  	
-  	la valeur du prst (monte carlo) obtenue telle qu'on le fait dépend complètement de l'unité de longueur qu'on utilise pour calculer les distance x,x'. Du coup on n'a vraiment aucune garantie sur les bornes du prst Monte Carlo, contrairement au prst complet...\\
+  	Bounds : la valeur du prst (monte carlo) obtenue telle qu'on le fait dépend complètement de l'unité de longueur qu'on utilise pour calculer les distance x,x'. Du coup on n'a vraiment aucune garantie sur les bornes du prst Monte Carlo, contrairement au prst complet...\\
   	
   	
   	\section{Results}
