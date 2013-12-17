@@ -56,10 +56,17 @@
 	Your project should include some amount of independent work, either by implementing a technique and showing its performance on some examples not included by the authors, or by doing some independent theoretical analysis.\\}
 
 	\subsection {Conventions et Notations}
+We chose to use .png images as input files as they are naturally rasterized and do not typically have artefacts. The Java class \texttt{BufferedImage} provides an easy way to access such images and manipulate them as arrays of pixels. For more simplicity we only considered grayscale images. Since the method we are implementing is taking advantage of sparsity in the function, a typical input image would be a black and white outline.
+\begin{figure}[h]
+\includegraphics[scale=0.5]{img/carre.png}
+\caption{Example of input image}
+\label{exemple_carre}
+\end{figure}
+
 Image = tableau de pixel en nuances de gris, f (x) = 255 - intensité en x, orientation des axes et des angles, etc.
 
 	\subsection{Sampling}
-In order to compute the PRST using the Monte Carlo algorithm for sparse functions, we first perform an importance sampling of points in the image, using $f(x)$ (normalized) as the probability density of selecting $x$. For this, we use the cumulative sum of pixel values over the image as the cumulative distribution function and perform an inverse transform sampling. Usually, this method works by generating a real number $u$ in range [0,1] and computing $F^{-1}(u)$, where $F$ is a cumulative distribution function. Here, we adapted the method to work with non-normalized integer functions :
+In order to compute the PRST using the Monte Carlo algorithm for sparse functions, we first perform an importance sampling of points in the image, using $f(x)$  as the probability density of selecting $x$. For this, we use the cumulative sum of pixel values over the image as the cumulative distribution function and perform an inverse transform sampling. Usually, this method works by generating a real number $u$ in range [0,1] and computing $F^{-1}(u)$, where $F$ is a cumulative distribution function. Here, we adapted the method to work with non-normalized integer functions :
 \begin{enumerate}
 \item Generate a random integer n in range $[0,max_F]$, where $F$ is the cumulative sum of pixel values and $max_F$ its maximum value;
 \item Let $p_1,...,p_N$ be the pixels of the image, compute $i=\inf\{m\in \mathbb{N}, m\leq N |  F(p_m) = n\}$;
