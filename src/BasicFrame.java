@@ -21,24 +21,39 @@ public class BasicFrame extends JFrame {
          * made visible or moved or whatever.
          */
         public void paint(Graphics g) {
+        	//testPRST(g);
+        	testPaquet(g);
+        		
 
-                /* g.setColor(Color.BLACK);
-                int [] t = d.toCoordinates();
-                g.drawLine(t[0], t[1], t[2], t[3]);*/
-        	
-                //g.drawLine((int) (d.r * d.cosTheta), -(int) (d.r * d.sinTheta), (p1.x + p2.x) / 2, (p1.y + p2.y) / 2); // normale
-        		String file = "src/carre.png";
-                PRST square = new PRST(file,1000);				
-                g.drawImage(square.getImage(), 0, 0, null);
-                square.compute();
-                Droite d = square.principal;
-                int[] t = d.toCoordinates();
-                g.setColor(Color.RED);
-                g.drawLine(t[0], t[1], t[2], t[3]);
-              //  g.setColor(Color.BLACK);
-                System.out.println("x1 = "+t[0]+" y1 = "+t[1]+" x2 = "+t[2]+" y2 = "+t[3]);
-                System.out.println(d.toString());
-
+        }
+        
+        public void testPRST(Graphics g){
+        	String file = "src/carre.png";
+            PRST square = new PRST(file,1000);				
+            g.drawImage(square.getImage(), 0, 0, null);
+            square.compute(g);
+            Droite d = square.principal;
+            int[] t = d.toCoordinates();
+            g.setColor(Color.RED);
+            g.drawLine(t[0], t[1], t[2], t[3]);
+          //  g.setColor(Color.BLACK);
+            System.out.println("x1 = "+t[0]+" y1 = "+t[1]+" x2 = "+t[2]+" y2 = "+t[3]);
+            System.out.println(d.toString());
+        }
+        
+        public void testPaquet(Graphics g){
+        	Point p1 = new Point(0,0);
+        	Point p2 = new Point(200,300);
+        	Point p3 = new Point (10,300);
+        	Point p4 = new Point (200,10);
+        	Droite d1 = new Droite (p1,p2);
+        	Droite paquet1 = d1.paquet(8);
+        	g.setColor(Color.BLACK);
+        	int[] t1 = d1.toCoordinates();
+        	g.drawLine(t1[0], t1[1], t1[2], t1[3]);
+        	g.setColor(Color.BLUE);
+        	int[] t2 = paquet1.toCoordinates();
+        	g.drawLine(t2[0], t2[1], t2[2], t2[3]);
         }
 
         public static void main(String arg[]) {

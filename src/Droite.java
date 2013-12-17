@@ -66,7 +66,13 @@ public class Droite {
 	}
 	
 	public Droite paquet(int n) {
-		return null;
+		int rayon = (int) Math.round(r);
+		double theta = Math.asin(sinTheta);
+		double k = Math.round(n*theta/(2*Math.PI));
+		theta = 2*k*Math.PI/n;
+		Droite res = new Droite (rayon,Math.cos(theta),Math.sin(theta));
+		
+		return res;
 	}
 	
 	public String toString() {

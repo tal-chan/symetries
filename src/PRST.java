@@ -91,6 +91,7 @@ public class PRST {
 		for (Droite d : prst.keySet()){
 			prst.put(d, (1+prst.get(d))/2);
 		}
+		max = (1+max)/2;
 		System.out.println(max);
 		System.out.println(principal);
 
@@ -141,7 +142,7 @@ public class PRST {
 				int[] t = paquet.toCoordinates();
                 //g.setColor(Color.RED);
                // g.drawImage(square.getImage(), 0, 0, null);
-                g.drawLine(t[0], t[1], t[2], t[3]);
+                
                // g.setColor(Color.BLACK);
              //   System.out.println("x1 = "+t[0]+" y1 = "+t[1]+" x2 = "+t[2]+" y2 = "+t[3]);
              //   System.out.println(paquet.toString());
@@ -167,6 +168,7 @@ public class PRST {
 						max = 1/(2*d*n);
 						principal=paquet;
 					}
+					g.drawLine(t[0], t[1], t[2], t[3]);
 				}
 			}
 		}
