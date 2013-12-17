@@ -35,6 +35,14 @@ public class Droite {
 		this.r =  this.cosTheta * xMilieu - this.sinTheta * yMilieu;	
 	}
 	
+	@Override
+	public boolean equals (Object o){
+		if (o instanceof Droite) {
+			return (r==((Droite)o).r && cosTheta==((Droite)o).cosTheta &&sinTheta==((Droite)o).sinTheta);
+		}
+		return false;
+	}
+	
 	public int[] toCoordinates () {
 		int x = (int) (r*cosTheta);
 		int y =  -(int) (r*sinTheta);
@@ -48,8 +56,23 @@ public class Droite {
 		
 	}
 	
+	public Droite paquet(int n) {
+		return null;
+	}
+	
 	public String toString() {
 		return "(r = " + r + ", cosTheta = " + cosTheta + ", sinTheta = " + sinTheta + ")";
+	}
+	
+	public static void main (String[] args){
+		Droite d1 = new Droite (10,1,0);
+		Droite d2 = new Droite (10,1,0);
+		Droite d3 = new Droite (9,1,0);
+		System.out.println(d1.equals(d2));
+		System.out.println(d1.equals(d3));
+		System.out.println(d1.hashCode());
+		System.out.println(d2.hashCode());
+		System.out.println(d3.hashCode());
 	}
 
 }

@@ -41,16 +41,17 @@ public class PRST {
 				int r = (int) Math.round(mediatrice.r);
 				// les angles des droites sont entre -pi/2 et pi/2, un simple asin suffit pour recuperer l'angle.
 				double theta = Math.asin(mediatrice.sinTheta);
-				double k = Math.floor(N*theta/(2*Math.PI));
+				double k = Math.round(N*theta/(2*Math.PI));
 				theta = 2*k*Math.PI/N;
-				Droite paquet = new Droite (r,Math.cos(theta),Math.sin(theta));
+				//Droite paquet = new Droite (r,Math.cos(theta),Math.sin(theta));
+				Droite paquet = new Droite (10,1,0);
 				// System.out.println(paquet.toString());
 				double d = pts[i].distanceFrom(pts[j]);
 				if (d==0.){break;}
 				//System.out.println(d);
 				if (prst.containsKey(paquet)){
 					System.out.println("DANS BOUCLE");
-					double v = prst.remove(paquet); 
+					double v = prst.get(paquet); 
 					v+= 1/(2*d*n);
 					prst.put(paquet,v);
 					if (v>max){
@@ -59,6 +60,7 @@ public class PRST {
 					}
 				}
 				else{
+					System.out.println(paquet.toString());
 					prst.put(paquet, 1/(2*d*n));
 					if (1/(2*d*n)>max){
 						max = 1/(2*d*n);
@@ -104,7 +106,7 @@ public class PRST {
 				int r = (int) Math.round(mediatrice.r);
 				// les angles des droites sont entre -pi/2 et pi/2, un simple asin suffit pour recuperer l'angle.
 				double theta = Math.asin(mediatrice.sinTheta);
-				double k = Math.floor(N*theta/(2*Math.PI));
+				double k = Math.round(N*theta/(2*Math.PI));
 				theta = 2*k*Math.PI/N;
 				Droite paquet = new Droite (r,Math.cos(theta),Math.sin(theta));
 				
@@ -123,7 +125,7 @@ public class PRST {
 				//System.out.println(d);
 				if (prst.containsKey(paquet)){
 					System.out.println("DANS BOUCLE");
-					double v = prst.remove(paquet); 
+					double v = prst.get(paquet); 
 					v+= 1/(2*d*n);
 					prst.put(paquet,v);
 					if (v>max){
