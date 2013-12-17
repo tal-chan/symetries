@@ -22,30 +22,18 @@ public class BasicFrame extends JFrame {
          */
         public void paint(Graphics g) {
 
-                /*Point p1 = new Point(240, 20);
-                Point p2 = new Point(150, 230);
-                
-                System.out.println("Point 1: " + p1.toString());
-                System.out.println("Point 2: " + p2.toString());
-
-                Droite d = new Droite(p1, p2);
-                System.out.println("Segment p1 - p2 : " + d.toString());
-
-                g.setColor(Color.RED);
-                g.drawLine(p1.x, p1.y, p2.x, p2.y); // Segment p1 - p2
-                
-
-                g.setColor(Color.BLACK);
+                /* g.setColor(Color.BLACK);
                 int [] t = d.toCoordinates();
                 g.drawLine(t[0], t[1], t[2], t[3]);*/
+        	
                 //g.drawLine((int) (d.r * d.cosTheta), -(int) (d.r * d.sinTheta), (p1.x + p2.x) / 2, (p1.y + p2.y) / 2); // normale
         		String file = "src/carre.png";
                 PRST square = new PRST(file,100);
 				square.compute(g);
                 Droite d = square.principal;
                 int[] t = d.toCoordinates();
-                g.setColor(Color.RED);
-                g.drawImage(square.getImage(), 0, 0, null);
+                g.setColor(Color.WHITE);
+               // g.drawImage(square.getImage(), 0, 0, null);
                 g.drawLine(t[0], t[1], t[2], t[3]);
               //  g.setColor(Color.BLACK);
                 System.out.println("x1 = "+t[0]+" y1 = "+t[1]+" x2 = "+t[2]+" y2 = "+t[3]);
