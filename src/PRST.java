@@ -34,7 +34,12 @@ public class PRST {
 		Point[] pts = sample.points;
 		int n = sample.size;
 		int N = 8;
-				
+		
+
+		try {
+			FileWriter fichier = new FileWriter("log2.txt");
+			fichier.write("\n Début du fichier de log \n ");
+			
 		for (int i=0;i<n;i++){
 			for (int j=0;j<i;j++){
 				Droite mediatrice = new Droite(pts[i],pts[j]);
@@ -43,16 +48,27 @@ public class PRST {
 				double theta = Math.asin(mediatrice.sinTheta);
 				double k = Math.round(N*theta/(2*Math.PI));
 				theta = 2*k*Math.PI/N;
-				//Droite paquet = new Droite (r,Math.cos(theta),Math.sin(theta));
-				Droite paquet = new Droite (10,1,0);
-				// System.out.println(paquet.toString());
+				Droite paquet = new Droite (r,Math.cos(theta),Math.sin(theta));
+			//	Droite paquet = new Droite (10,1,0);
+			//	Droite paquet = mediatrice;
+
+			//	System.out.println(paquet.toString());
+			//	System.out.println(paquet.hashCode());
+			//	System.out.println("");
+				
 				double d = pts[i].distanceFrom(pts[j]);
+			//	System.out.println(d);
 				if (d==0.){break;}
 				//System.out.println(d);
 				if (prst.containsKey(paquet)){
-					System.out.println("DANS BOUCLE");
+					//System.out.println("DANS BOUCLE");
 					double v = prst.get(paquet); 
+					fichier.write("PAQUET DEJA TROUVE, ");
+					fichier.write(paquet.toString());
+					fichier.write("on ajoute " + 1/(2*d*n));
 					v+= 1/(2*d*n);
+					fichier.write(", RESULTAT =  " + v);
+					fichier.write("\n");
 					prst.put(paquet,v);
 					if (v>max){
 						max=v;
@@ -60,7 +76,10 @@ public class PRST {
 					}
 				}
 				else{
-					System.out.println(paquet.toString());
+					fichier.write("nouveau PAQUET: ");
+					fichier.write(paquet.toString());
+					fichier.write(" on met RESULTAT = "+1/(2*d*n));
+					fichier.write("\n");
 					prst.put(paquet, 1/(2*d*n));
 					if (1/(2*d*n)>max){
 						max = 1/(2*d*n);
@@ -72,6 +91,15 @@ public class PRST {
 		for (Droite d : prst.keySet()){
 			prst.put(d, (1+prst.get(d))/2);
 		}
+		System.out.println(max);
+		System.out.println(principal);
+
+		fichier.write("\n Fin du fichier de log");
+		fichier.close();
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+			
 		
 	}
 	
