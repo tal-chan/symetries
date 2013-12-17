@@ -42,7 +42,15 @@ public class Droite {
 		}
 		return false;
 	}
-	
+
+	@Override
+	public int hashCode() {
+		double hash = 5;
+		hash = 89 * hash + cosTheta*1057; ;
+		hash = 89 * hash + ((int)r ^ ((int)r >>> 32));
+		hash = 89 * hash + sinTheta*7001;
+		return (int) hash;
+	}
 	
 	public int[] toCoordinates () {
 		int x = (int) (r*cosTheta);
