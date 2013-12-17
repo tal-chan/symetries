@@ -43,6 +43,7 @@ public class Droite {
 		return false;
 	}
 	
+	
 	public int[] toCoordinates () {
 		int x = (int) (r*cosTheta);
 		int y =  -(int) (r*sinTheta);
