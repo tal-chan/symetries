@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.io.IOException;
 
 import javax.swing.*;
 
@@ -39,14 +40,14 @@ public class BasicFrame extends JFrame {
                 g.drawLine(t[0], t[1], t[2], t[3]);*/
                 //g.drawLine((int) (d.r * d.cosTheta), -(int) (d.r * d.sinTheta), (p1.x + p2.x) / 2, (p1.y + p2.y) / 2); // normale
         		String file = "src/carre.png";
-                PRST square = new PRST(file,1000);
-                square.compute();
+                PRST square = new PRST(file,100);
+				square.compute(g);
                 Droite d = square.principal;
                 int[] t = d.toCoordinates();
-                //g.setColor(Color.RED);
+                g.setColor(Color.RED);
                 g.drawImage(square.getImage(), 0, 0, null);
                 g.drawLine(t[0], t[1], t[2], t[3]);
-                g.setColor(Color.BLACK);
+              //  g.setColor(Color.BLACK);
                 System.out.println("x1 = "+t[0]+" y1 = "+t[1]+" x2 = "+t[2]+" y2 = "+t[3]);
                 System.out.println(d.toString());
 
