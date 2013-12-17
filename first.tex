@@ -5,7 +5,7 @@
 \usepackage{fancyhdr}
 \usepackage{lastpage}
 \usepackage{graphicx}
-
+\usepackage{amsmath}
 % Mise en page
 \usepackage{geometry}
 \geometry{a4paper,twoside,left=2.5cm,right=2.5cm,top=2.8cm,bottom=2.8cm} %taille et marges
@@ -54,9 +54,41 @@
 	\textit{· 2 page description of your implementation. Here you should describe the main building blocks of your implementation. We are especially interested in: whether you had any problems, whether there were things not mentioned in the paper that you had to discover or derive yourself (be very explicit about your own work!), whether you used any external libraries, etc. What we're not interested in: what are the names of your classes and variables, what operating system you were using, if you had to change some header files, etc. Whenever possible (which is most of the time), please try to use images instead of text to explain concepts.\\
 	Your project should include some amount of independent work, either by implementing a technique and showing its performance on some examples not included by the authors, or by doing some independent theoretical analysis.\\}
 
+	
+	\subsection{Sampling}
+In order to compute the PRST using the Monte Carlo algorithm for sparse functions, we first perform an importance sampling of points in the image, using $f(x)$ (normalized) as the probability density of selecting $x$.
+
 	\subsection{Adjustments for 2D}
 	
-the	polar issue, formulas different, etc...
+	the polar issue, formulas different, etc...
+
+The Monte Carlo algorithm we chose to use for computing the PRST requires to derive a change-of-variable weight for each pair of points $(x,x')$, accounting for the transformation between the discrete parametrization of liness over $(r,\theta)$ and the pairs of reflected points. In 3D, the change-of-variables weight is given by the following formula :
+\[w_{change-of-variables} = 2d^2\sin\theta\]
+However, since we are working in 2D, we need to recompute this weight in order to fit the new coordinates system. As in 3D, we compute the determinant of the Jacobian of the change-of-variables transformation. Let 
+\[\vec{n}=\begin{pmatrix}\cos\theta \\ \sin\theta\end{pmatrix}\]
+be the normal of the line of reflection, $d$ the distance between $x$ and $x'$, we can write :
+\begin{align*}
+ d & = \lVert x-x' \rVert  \\
+& = 2(r-\vec{n}\cdot x) \\
+x' &= x+ d\vec{n}\\
+&= x+ 2(r\vec{n} - (\vec{n}\cdot x)\vec{n})
+\end{align*}
+thus we have :
+\begin{align*}
+\frac{\partial x'}{\partial r}&=2\vec{n}\\
+\frac{\partial x'}{\partial \theta}&= 2r\vec{u}-2[(\vec{u}\cdot x)\vec{n}+(\vec{n}\cdot x)\vec{u}]
+\end{align*}
+where 
+\[\vec{u}=\frac{\partial \vec{n}}{\partial \theta} = \vec{n}=\begin{pmatrix}-\sin\theta \\ \cos\theta\end{pmatrix}.\]
+Therefore, the Jacobian is
+\[J = 2
+\begin{pmatrix}
+\cos\theta & -r\sin\theta-(\vec{u}\cdot x)\cos\theta+(\vec{n}\cdot x)\sin\theta\\
+\sin\theta &  r \cos\theta - (\vec{u}\cdot x)\sin\theta - (\vec{n}\cdot x)\cos\theta
+\end{pmatrix}\]
+and so the determinant is
+\[w_{change-of-variables} = |J| = 2d.\]
+
   	
   	\subsection{Choice of the 1/N factor in the calculus of D}
   	
