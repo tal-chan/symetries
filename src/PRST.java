@@ -109,7 +109,7 @@ public class PRST {
 		int n = sample.size;
 		int N = 8;
 				
-		for (int i=0;i<n;i++){System.out.println(i);
+		for (int i=0;i<n;i++){//System.out.println(i);
             switch(i%10){
             	case 0: g.setColor(Color.black);         	break;
             	case 1: g.setColor(Color.black);         	break;
@@ -138,8 +138,7 @@ public class PRST {
 				double k = Math.round(N*theta/(2*Math.PI));
 				theta = 2*k*Math.PI/N;
 				Droite paquet = new Droite (r,Math.cos(theta),Math.sin(theta));
-				
-				int[] t = paquet.toCoordinates();
+				//mediatrice.draw(g);
                 //g.setColor(Color.RED);
                // g.drawImage(square.getImage(), 0, 0, null);
                 
@@ -153,7 +152,7 @@ public class PRST {
 				if (d==0.){break;}
 				//System.out.println(d);
 				if (prst.containsKey(paquet)){
-					System.out.println("DANS BOUCLE");
+					//System.out.println("DANS BOUCLE");
 					double v = prst.get(paquet); 
 					v+= 1/(2*d*n);
 					prst.put(paquet,v);
@@ -168,21 +167,29 @@ public class PRST {
 						max = 1/(2*d*n);
 						principal=paquet;
 					}
-					g.drawLine(t[0], t[1], t[2], t[3]);
+					//paquet.draw(g);
 				}
 			}
 		}
+
+		max = (1+max)/2;
+		double s = 0.98*max;
 		for (Droite d : prst.keySet()){
-			prst.put(d, (1+prst.get(d))/2);
+			double valeur = (1+prst.get(d))/2;
+			prst.put(d, valeur);
+			if (valeur>s){
+				d.draw(g);
+			}
+			System.out.println(valeur);
 		}
-		
+		System.out.println("max = "+max);
 		System.out.println("FIN DE COMPUTE");
 		
 	}
 	
 	public static void main (String[] args){
 		String file = "src/carre.png";
-		PRST square = new PRST(file,500);
+		PRST square = new PRST(file,5000);
 		square.compute();
 		
 		try {

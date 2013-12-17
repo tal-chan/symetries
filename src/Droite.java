@@ -1,3 +1,5 @@
+import java.awt.Graphics;
+
 
 public class Droite {
 	
@@ -60,9 +62,14 @@ public class Droite {
 			return t;
 			
 		}
-		int t[] = {x,y-200,x,y+200};
+		int[] t = {x,y-200,x,y+200};
 		return t;
 		
+	}
+	
+	public void draw(Graphics g){
+		int[] t = toCoordinates();
+		g.drawLine(t[0], t[1], t[2], t[3]);
 	}
 	
 	public Droite paquet(int n) {
