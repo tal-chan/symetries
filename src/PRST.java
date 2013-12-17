@@ -88,10 +88,10 @@ public class PRST {
 				}
 			}
 		}
-		for (Droite d : prst.keySet()){
+		/*for (Droite d : prst.keySet()){
 			prst.put(d, (1+prst.get(d))/2);
-		}
-		max = (1+max)/2;
+		}*/
+		//max = (1+max)/2;
 		System.out.println(max);
 		System.out.println(principal);
 
@@ -172,10 +172,11 @@ public class PRST {
 			}
 		}
 
-		max = (1+max)/2;
-		double s = 0.98*max;
+		//max = (1+max)/2;
+		double s = 0.5*max;
 		for (Droite d : prst.keySet()){
-			double valeur = (1+prst.get(d))/2;
+			//double valeur = (1+prst.get(d))/2;
+			double valeur = prst.get(d);
 			prst.put(d, valeur);
 			if (valeur>s){
 				d.draw(g);
