@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 
 
@@ -69,6 +70,12 @@ public class Droite {
 	
 	public void draw(Graphics g){
 		int[] t = toCoordinates();
+		g.drawLine(t[0], t[1], t[2], t[3]);
+	}
+	
+	public void draw(Graphics g, Color c){
+		int[] t = toCoordinates();
+		g.setColor(c);
 		g.drawLine(t[0], t[1], t[2], t[3]);
 	}
 	

@@ -128,23 +128,23 @@ public class PRST {
 	            	case 8: g.setColor(Color.pink);         	break;
 	            	case 9: g.setColor(Color.red);         		break;
 	            }
-	            Object o=new Object();
+	            /*Object o=new Object();
 	            try
 	            {
-	                synchronized(o) { o.wait(2000); }
+	                synchronized(o) { o.wait(20); }
 	            }
-	            catch(InterruptedException e) { }
+	            catch(InterruptedException e) { }*/
 				
 				Droite mediatrice = new Droite(pts[i],pts[j]);
 				
-				Graphics2D g2 = (Graphics2D)g;
-				Stroke s = g2.getStroke();
+				//Graphics2D g2 = (Graphics2D)g;
+				//Stroke s = g2.getStroke();
 				// trait épais
-				g2.setStroke(new BasicStroke(8));
-				g.drawLine(pts[i].x, pts[i].y,pts[i].x, pts[i].y);
-				g.drawLine(pts[j].x, pts[j].y,pts[j].x, pts[j].y);
+				//g2.setStroke(new BasicStroke(8));
+				//g.drawLine(pts[i].x, pts[i].y,pts[i].x, pts[i].y);
+				//g.drawLine(pts[j].x, pts[j].y,pts[j].x, pts[j].y);
 				// retour au trait "normal"
-				g2.setStroke(s);
+				//g2.setStroke(s);
 				
 				int r = (int) Math.round(mediatrice.r);
 				// les angles des droites sont entre -pi/2 et pi/2, un simple asin suffit pour recuperer l'angle.
@@ -153,7 +153,7 @@ public class PRST {
 				theta = 2*k*Math.PI/N;
 				Droite paquet = new Droite (r,Math.cos(theta),Math.sin(theta));
 				
-				paquet.draw(g);
+				//paquet.draw(g);
 				
                // g.setColor(Color.BLACK);
              //   System.out.println("x1 = "+t[0]+" y1 = "+t[1]+" x2 = "+t[2]+" y2 = "+t[3]);
@@ -183,13 +183,14 @@ public class PRST {
 		}
 
 		//max = (1+max)/2;
-		double s = 0.5*max;
+		double s = 0.2*max;
 		for (Droite d : prst.keySet()){
 			//double valeur = (1+prst.get(d))/2;
 			double valeur = prst.get(d);
 			prst.put(d, valeur);
 			if (valeur>s){
-				d.draw(g);
+				Color c = new Color ((float)(valeur/max),(float)0.,(float)(1.-valeur/max));
+				d.draw(g,c);
 			}
 			System.out.println(valeur);
 		}
