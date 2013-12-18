@@ -29,8 +29,11 @@ public class Droite {
 			this.cosTheta = - this.cosTheta;
 			this.sinTheta = - this.sinTheta;
 		}
+		if (this.cosTheta==0){
+			this.sinTheta=1;
+		}
 		
-		System.out.println(cosTheta*cosTheta+sinTheta*sinTheta);
+		//System.out.println(cosTheta*cosTheta+sinTheta*sinTheta);
 		
 		// droite d'equation ax + by + c = 0 (a = cosTheta, b = sinTheta, c = r cherché)
 		double xMilieu = (((double)p2.getX()) + p1.getX())/2;
@@ -59,11 +62,11 @@ public class Droite {
 		int x = (int) (r*cosTheta);
 		int y =  (int) (r*sinTheta);
 		if(sinTheta!=0.){
-			int[]t={x,y,x+400,(int)(y-cosTheta/sinTheta*400)};;
+			int[]t={x-400,(int)(y+cosTheta/sinTheta*400),x+400,(int)(y-cosTheta/sinTheta*400)};;
 			return t;
 			
 		}
-		int[] t = {x,y-200,x,y+200};
+		int[] t = {x,y-400,x,y+400};
 		return t;
 		
 	}

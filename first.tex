@@ -56,7 +56,7 @@
 	Your project should include some amount of independent work, either by implementing a technique and showing its performance on some examples not included by the authors, or by doing some independent theoretical analysis.\\}
 
 	\subsection {Conventions and Notations}
-We chose to use .png images as input files as they are naturally rasterized and do not typically have artefacts. For more simplicity we only considered grayscale images. Since the method we are implementing is taking advantage of sparsity in the function, a typical input image would be a black and white outline (see Figure \ref{exemple_carre}). The Java class \texttt{BufferedImage} provides an easy way to access such images and manipulate them as arrays of integers between 0 and 255. 
+We chose to use classic image formats (png, jpg) as input files as they are naturally rasterized. For more simplicity we only considered grayscale images. Since the method we are implementing is taking advantage of sparsity in the function, a typical input image would be a black and white outline (see Figure \ref{exemple_carre}). The Java class \texttt{BufferedImage} provides an easy way to access such images and manipulate them as arrays of integers between 0 and 255. 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[scale=0.5]{img/carre.png}
@@ -69,7 +69,7 @@ Since pixel values are high for white and low for black, we want to work with th
 \[f(p) = 255 - \text{intensity of $I$ at $p$}\]
 so that $f(p)=0$ for white pixels, i.e. empty space.
 
-For point coordinates, we simply use the default Java coordinate system, with $(0,0)$ in the upper-left corner, as shown in Figure \ref{coordinates}. All points have integer coordinates. Lines however, are parametrized over a pair of \texttt{double} values $(r,\theta)$ where $r$ is the distance of the line to the origin and $\theta$ the angle of the normal vector, as shown in Figure \ref{lines_parametrization}.
+For point coordinates, we simply use the default Java coordinate system, with $(0,0)$ in the upper-left corner, as shown in Figure \ref{coordinates}. All points have integer coordinates. Lines however, are parametrized over a pair of \texttt{double} values $(r,\theta)$ where $|r|$ is the distance of the line to the origin and $\theta$ the angle of the normal vector, as shown in Figure \ref{lines_parametrization}. $theta$ is in $(-\frac{\pi}{2},\frac{\pi}{2}]$ and $r$ can be negative.
 \begin{figure}[h]
 \includegraphics[scale=0.5]{img/coordinates.png}
 \caption{$(x,y)$ coordinates for Java images}

@@ -110,7 +110,7 @@ public class PRST {
 	public void compute(Graphics g){
 		Point[] pts = sample.points;
 		int n = sample.size;
-		int N = 8;
+		int N = 32;
 				
 		for (int i=0;i<n;i++){//System.out.println(i);
 			for (int j=0;j<i;j++){
@@ -183,13 +183,13 @@ public class PRST {
 		}
 
 		//max = (1+max)/2;
-		double s = 0.2*max;
+		double s = 0.3*max;
 		for (Droite d : prst.keySet()){
 			//double valeur = (1+prst.get(d))/2;
 			double valeur = prst.get(d);
 			prst.put(d, valeur);
 			if (valeur>s){
-				Color c = new Color ((float)(valeur/max),(float)0.,(float)(1.-valeur/max));
+				Color c = new Color ((float)(valeur/max),(float)0.,(float)(1.-valeur/max),(float).5);
 				d.draw(g,c);
 			}
 			System.out.println(valeur);

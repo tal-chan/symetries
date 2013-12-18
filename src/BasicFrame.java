@@ -28,8 +28,8 @@ public class BasicFrame extends JFrame {
         }
         
         public void testPRST(Graphics g){
-        	String file = "src/carre.png";
-            PRST square = new PRST(file,100);				
+        	String file = "src/voiture.gif";
+            PRST square = new PRST(file,1000);				
             g.drawImage(square.getImage(), 0, 0, null);
             square.compute(g);
         }
