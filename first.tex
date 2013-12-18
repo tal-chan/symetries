@@ -42,12 +42,52 @@
  
 	\section{A Planar-Reflective Symmetry Transform for 3D Shapes}
 	
-		%TODO delete before saving
-	\textit{· 1 page description of the method you're implementing. (A Planar-Reflective Symmetry Transform for 3D Shapes paper) It goes without saying that you shouldn't copy text from the paper, but rather describe in your own words what the method is trying to do and how it does it. \\}
+	We chose to try to implement the planar reflective symmetry transform (PRST) described by Podolak et al.~\cite{Podolak:2006:APS}. This transform takes a 3D shape and aims at getting the space of planes that are associated to a reflectional symmetry. It provides both global symmetries, certain local symmetries and even imperfect symmetries. Moreover, it is not sensitive to noise or missing data. For a proper understanding of this method, we transcribe here some of the formulas used.\\
 	
-	We chose to try to implement the planar reflective symmetry transform (PRST) described by Podolak et al. ~\cite{Podolak:2006:APS}.
+	Given a function $f$ representing the energy, $PRST(f,\gamma)$ is a measure of $f$'s symmetry with respect to the plane reflection $\gamma$.
+	The symmetry distance, $SD(f,\gamma)$ is defined as the $L_2$ distance between $f$ and the nearest function that is invariant to that reflection:
+	\begin{displaymath}
+	SD(f,\gamma) = min_{g|\gamma(g)=g} \lVert f-g \lVert . %TODO afficher en dessous
+	\end{displaymath}
+
+Which leads, by normalizing the symmetry measure, to
+$$ PRST^2(f,\gamma) = 1 - \frac{SD^2(f,\gamma)}{\lVert f \lVert ^2}	 $$
+
+However, the nearest symmetric function to $f$ is the average of $f$ and $\gamma(f)$:
+$$ SD(f,\gamma) = \lVert f - \frac{f + \gamma(f)}{2} \lVert = \frac{\lVert f - \gamma(f) \lVert }{2} $$
+
+Therefore, we have:
+$$ PRST^2(f,\gamma) = 1 - \frac{SD^2(f,\gamma)}{\lVert f \lVert ^2} =  1 - \frac{\lVert f - \gamma(f) \lVert ^2 }{4 \lVert f \lVert ^2}	=  1 - \frac{\lVert f \lVert ^2 - 2f.\gamma(f) + \lVert \gamma(f) \lVert ^2 }{4 \lVert f \lVert ^2} $$
+
+If $f$ is normalized, we obtain
+$$ PRST^2(f,\gamma) = \frac{1 + f.\gamma(f)}{2} $$
+
+	Thus, to evaluate the symmetry measure for a plane, we need to evaluate the following estimator, called Monte Carlo estimator :
+$$ D(f,\gamma) = f.\gamma(f). $$
 	
-	Monte Carlo évite brute force, sélection intelligente selon l'énergie de la fonction
+	To compute this PRST we chose to use a Monte Carlo algorithm, which computes a discrete version of the PRST that takes advantage of sparsity in the function $f$. This sparsity is mostly found in  point sets and rasterized surfaces.
+	The brute force approach would be to evaluate the PRST for every single plane in the space of the figure. That would be done by selecting a pair of points and voting for the plane between them. Instead of chosing the points randomly, we favour the points corresponding to a high energy of function $f$.\\
+	
+
+\indent \indent \textbf{for} sampled points $x$:\\
+\indent \indent \indent \textbf{for} sampled points $x'$: \\
+\indent \indent \indent \indent $\gamma \leftarrow$ reflection plane($x, x'$)\\
+\indent \indent \indent \indent $D(f,\gamma) += w(x, x',\gamma).f(x).f(x')$\\
+	
+Moreover we do not vote for planes but bins of planes and we weight the vote of each pair of points:
+$$ w(x, x',\gamma) = w_{samp} . w_{change-of-variables} $$
+
+$w_{samp}$ is the reciprocal of the probability of having selected the two points :
+$$w_{samp}(x, x',\gamma) = \frac{1}{f(x).f(x')}. $$
+
+The $change-of-variables$ is due to the fact that we move from a pair of points to discretized bins represented un polar, and is given by the formula \[w_{change-of-variables} = 2d^2\sin\theta\]
+where $\theta$ is the angle of the bin from the origin.\\
+
+This leads to $$ w(x, x',\gamma) = \frac{1}{f(x)f(x')2d^2\sin\theta}. $$
+
+In the end, we obtain $$D(f,\gamma) = \frac{1}{N_{samp}} \sum_{i=1}^{N_{samp}}\frac{1}{2d^2\sin\theta}$$
+
+
 	
 	\section{Our implementation}
 	
@@ -94,7 +134,7 @@ In order to compute the PRST using the Monte Carlo algorithm for sparse function
 
 	\subsection{Adjustments for 2D}
 	
-	the polar issue, formulas different, etc...
+\textit{	the polar issue, formulas different, etc...\\}
 
 The Monte Carlo algorithm we chose to use for computing the PRST requires to derive a change-of-variable weight for each pair of points $(x,x')$, accounting for the transformation between the discrete parametrization of lines over $(r,\theta)$ and the pairs of reflected points. In 3D, the change-of-variables weight is given by the following formula :
 \[w_{change-of-variables} = 2d^2\sin\theta\]
