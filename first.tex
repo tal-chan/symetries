@@ -7,6 +7,8 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{amsfonts,amssymb}
+\usepackage{xcolor}
+\usepackage{pict2e}
 
 \usepackage{sidecap}
 \usepackage{subcaption}
@@ -67,8 +69,11 @@ $$ SD(f,\gamma) = \lVert f - \frac{f + \gamma(f)}{2} \lVert = \frac{\lVert f - \
 Therefore, we have:
 $$ PRST^2(f,\gamma) = 1 - \frac{SD^2(f,\gamma)}{\lVert f \lVert ^2} =  1 - \frac{\lVert f - \gamma(f) \lVert ^2 }{4 \lVert f \lVert ^2}	=  1 - \frac{\lVert f \lVert ^2 - 2f.\gamma(f) + \lVert \gamma(f) \lVert ^2 }{4 \lVert f \lVert ^2} $$
 
-If $f$ is normalized, we obtain
-$$ PRST^2(f,\gamma) = \frac{1 + f.\gamma(f)}{2} $$
+If $f$ is normalized\footnote{We will discuss that point in \ref{comments}}, we obtain
+\begin{equation}
+PRST^2(f,\gamma) = \frac{1 + f.\gamma(f)}{2}
+\label{equation_simplifiee}
+\end{equation}
 
 	Thus, to evaluate the symmetry measure for a plane, we need to evaluate the following estimator, called Monte Carlo estimator :
 $$ D(f,\gamma) = f.\gamma(f). $$
@@ -93,8 +98,11 @@ where $\theta$ is the angle of the bin from the origin.\\
 
 This leads to $$ w(x, x',\gamma) = \frac{1}{f(x)f(x')2d^2\sin\theta}. $$
 
-In the end, we obtain $$D(f,\gamma) = \frac{1}{N_{samp}} \sum_{i=1}^{N_{samp}}\frac{1}{2d^2\sin\theta}$$
-
+In the end, we obtain
+\begin{equation}
+D(f,\gamma) = \frac{1}{N_{samp}} \sum_{i=1}^{N_{samp}}\frac{1}{2d^2\sin\theta}
+\label{equation_finale}
+\end{equation} 
 
 	
 	\section{Our implementation}
@@ -179,9 +187,12 @@ We were initially suprised by the lack of dependence in $\theta$, contrary to th
 
 
   	\subsection{Comments}
-  	Choice of the 1/N factor in the calculus of D : explain that it comes out of the blue ... \\
+  	\label{comments}
+  	The value $N_{samp}$ used in formula~\eqref{equation_finale} is not clearly defined. We find it not consistent that it is both the normalization factor and the terminal of the sum. This normalization of $f$ may used to obtain equation ~\eqref{equation}. In that case, the terminal of the sum would be the number of pairs that voted for the bin and not the total number of points.\\
   	
   	Bounds : la valeur du prst (monte carlo) obtenue telle qu'on le fait dépend complètement de l'unité de longueur qu'on utilise pour calculer les distance x,x'. Du coup on n'a vraiment aucune garantie sur les bornes du prst Monte Carlo, contrairement au prst complet...\\
+  	
+	The PRST obtained by Monte Carlo algorithm seems to depend on the unit chosen. The way we calculated it -- using a pixel as a unit -- the Monte Carlo indicator $D$ is  between 0 and 1 but it was implicit. Thus, if we calculate $PRST^2(f,\gamma) = \frac{1 + D(f,\gamma)}{2}$ the bounds are not 0 and 1, which is why we used D as if it was PRST. Beyond this issue, we have very low values in any case.
   	
   	
   	\section{Results}
@@ -246,10 +257,9 @@ The threashold method for visualizing the PRST is also imperfect. In order to ob
  \label{rosace 2}
 \end{figure}
 
-
 	\section*{Conclusion}
 \addcontentsline{toc}{section}{Conclusion}
-We have implemented the Monte Carlo algorithm to calculate a discrete version of the planar reflective symmetry transform for 2D shapes, by adapting the 3D method in 2D. We managed to perform an efficient sampling according to the density of points in the image. Then we selected pairs of sampled points and voted for the most accurate bin of planes between them. We managed to obtain good results namely high PRST values corresponding to symmetry axes in the original picture. As a result, we measured the symmetry of an object with respect to all planes in a discrete space. Computer graphics benefit from that type of symmetry information, which allows a certain efficiency and economy in shape processing.
+We have implemented the Monte Carlo algorithm to calculate a discrete version of the planar reflective symmetry transform for 2D shapes, by adapting the 3D method in 2D. We managed to perform an efficient sampling according to the density of points in the image. Then we selected pairs of sampled points and voted for the most accurate bin of planes between them. In our values we obtain some outliers, given that the PRST values are unevenly distributed in $[0,1]$ and that bold edges happend to be too thick and symmetrical, which can creates disturbances. However, we managed to obtain good results namely high PRST values corresponding to symmetry axes in the original picture. As a result, we measured the symmetry of an object with respect to all planes in a discrete space. Computer graphics benefit from that type of symmetry information, which allows a certain efficiency and economy in shape processing.
 
 \addcontentsline{toc}{section}{References} 
 \nocite{*}
