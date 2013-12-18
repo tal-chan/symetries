@@ -74,13 +74,13 @@ $$ D(f,\gamma) = f.\gamma(f). $$
 \indent \indent \indent \indent $\gamma \leftarrow$ reflection plane($x, x'$)\\
 \indent \indent \indent \indent $D(f,\gamma) += w(x, x',\gamma).f(x).f(x')$\\
 	
-Moreover we do not vote for planes but bins of planes and we weight the vote of each pair of points:
+Moreover we do not vote for planes but discretized bins of planes and we weight the vote of each pair of points:
 $$ w(x, x',\gamma) = w_{samp} . w_{change-of-variables} $$
 
 $w_{samp}$ is the reciprocal of the probability of having selected the two points :
 $$w_{samp}(x, x',\gamma) = \frac{1}{f(x).f(x')}. $$
 
-The $change-of-variables$ is due to the fact that we move from a pair of points to discretized bins represented un polar, and is given by the formula \[w_{change-of-variables} = 2d^2\sin\theta\]
+The $change-of-variables$ is due to the fact that we move from a pair of points to discretized bins represented by polar coordinates. In 3D spherical coordinates, it is given by the formula \[w_{change-of-variables} = 2d^2\sin\theta\]
 where $\theta$ is the angle of the bin from the origin.\\
 
 This leads to $$ w(x, x',\gamma) = \frac{1}{f(x)f(x')2d^2\sin\theta}. $$
