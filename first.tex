@@ -7,6 +7,9 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{amsfonts,amssymb}
+\usepackage{xcolor}
+\usepackage{pict2e}
+\usepackage{tikz} %Dessins
 % Mise en page
 \usepackage{geometry}
 \geometry{a4paper,twoside,left=2.5cm,right=2.5cm,top=2.8cm,bottom=2.8cm} %taille et marges
@@ -109,18 +112,19 @@ Since pixel values are high for white and low for black, we want to work with th
 \[f(p) = 255 - \text{intensity of $I$ at $p$}\]
 so that $f(p)=0$ for white pixels, i.e. empty space.
 
-For point coordinates, we simply use the default Java coordinate system, with $(0,0)$ in the upper-left corner, as shown in Figure \ref{coordinates}. All points have integer coordinates. Lines however, are parametrized over a pair of \texttt{double} values $(r,\theta)$ where $|r|$ is the distance of the line to the origin and $\theta$ the angle of the normal vector, as shown in Figure \ref{lines_parametrization}. $theta$ is in $(-\frac{\pi}{2},\frac{\pi}{2}]$ and $r$ can be negative.
+For point coordinates, we simply use the default Java coordinate system, with $(0,0)$ in the upper-left corner, as shown in Figure \ref{coordinates}. All points have integer coordinates. Lines however, are parametrized over a pair of \texttt{double} values $(r,\theta)$ where $|r|$ is the distance of the line to the origin and $\theta$ the angle of the normal vector, as shown in Figure \ref{lines_parametrization}. $theta$ is in $(-\frac{\pi}{2},\frac{\pi}{2}]$ and $r$ can be negative.\\
+
 \begin{figure}[h]
-\includegraphics[scale=0.5]{img/coordinates.png}
+\input{figCoord}
 \caption{$(x,y)$ coordinates for Java images}
-\label{coordinates}
+\label{coordinates}	
 \end{figure}
-\begin{figure}[h]
-\includegraphics[scale=0.7]{img/lines.png}
+
+\begin{figure}[h]	
+\input{figLines}	
 \caption{$(r,\theta)$ parametrization of lines}
 \label{lines_parametrization}
 \end{figure}
-
 
 	\subsection{Sampling}
 In order to compute the PRST using the Monte Carlo algorithm for sparse functions, we first perform an importance sampling of points in the image, using $f(x)$  as the probability density of selecting $x$. For this, we use the cumulative sum of $f(x)$ over the image as the cumulative distribution function and perform an inverse transform sampling. Usually, this method works by generating a real number $u$ in range [0,1] and computing $F^{-1}(u)$, where $F$ is a cumulative distribution function. Here, we adapted the method to work with non-normalized integer functions :
