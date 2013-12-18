@@ -7,15 +7,14 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{amsfonts,amssymb}
-<<<<<<< HEAD
+
 \usepackage{sidecap}
 \usepackage{subcaption}
 
-=======
 \usepackage{xcolor}
 \usepackage{pict2e}
 \usepackage{tikz} %Dessins
->>>>>>> 732971eada49fcc5f074beee6bb6e579d7ecc2b2
+
 % Mise en page
 \usepackage{geometry}
 \geometry{a4paper,twoside,left=2.5cm,right=2.5cm,top=2.8cm,bottom=2.8cm} %taille et marges
@@ -115,12 +114,10 @@ Since pixel values are high for white and low for black, we want to work with th
 so that $f(p)=0$ for white pixels, i.e. empty space.
 
 For point coordinates, we simply use the default Java coordinate system, with $(0,0)$ in the upper-left corner, as shown in Figure \ref{coordinates}. All points have integer coordinates. Lines however, are parametrized over a pair of \texttt{double} values $(r,\theta)$ where $|r|$ is the distance of the line to the origin and $\theta$ the angle of the normal vector, as shown in Figure \ref{lines_parametrization}. In order to easily retrieve $\theta$ from $\sin\theta$, we chose to have $\theta\in\left]-\frac{\pi}{2},\frac{\pi}{2}\right]$ and the radius $r$ can be negative.
-\begin{figure}[h]
-\includegraphics[scale=0.7]{img/coordinates.png}
+
 
 \begin{figure}[h]
 \input{figCoord}
->>>>>>> 732971eada49fcc5f074beee6bb6e579d7ecc2b2
 \caption{$(x,y)$ coordinates for Java images}
 \label{coordinates}	
 \end{figure}
