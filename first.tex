@@ -7,6 +7,9 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{amsfonts,amssymb}
+\usepackage{sidecap}
+\usepackage{subcaption}
+
 % Mise en page
 \usepackage{geometry}
 \geometry{a4paper,twoside,left=2.5cm,right=2.5cm,top=2.8cm,bottom=2.8cm} %taille et marges
@@ -90,10 +93,6 @@ In the end, we obtain $$D(f,\gamma) = \frac{1}{N_{samp}} \sum_{i=1}^{N_{samp}}\f
 
 	
 	\section{Our implementation}
-	
-	%TODO delete before saving
-	\textit{· 2 page description of your implementation. Here you should describe the main building blocks of your implementation. We are especially interested in: whether you had any problems, whether there were things not mentioned in the paper that you had to discover or derive yourself (be very explicit about your own work!), whether you used any external libraries, etc. What we're not interested in: what are the names of your classes and variables, what operating system you were using, if you had to change some header files, etc. Whenever possible (which is most of the time), please try to use images instead of text to explain concepts.\\
-	Your project should include some amount of independent work, either by implementing a technique and showing its performance on some examples not included by the authors, or by doing some independent theoretical analysis.\\}
 
 	\subsection {Conventions and Notations}
 We chose to use classic image formats (png, jpg) as input files as they are naturally rasterized. For more simplicity we only considered grayscale images. Since the method we are implementing is taking advantage of sparsity in the function, a typical input image would be a black and white outline (see Figure \ref{exemple_carre}). The Java class \texttt{BufferedImage} provides an easy way to access such images and manipulate them as arrays of integers between 0 and 255. 
@@ -109,9 +108,9 @@ Since pixel values are high for white and low for black, we want to work with th
 \[f(p) = 255 - \text{intensity of $I$ at $p$}\]
 so that $f(p)=0$ for white pixels, i.e. empty space.
 
-For point coordinates, we simply use the default Java coordinate system, with $(0,0)$ in the upper-left corner, as shown in Figure \ref{coordinates}. All points have integer coordinates. Lines however, are parametrized over a pair of \texttt{double} values $(r,\theta)$ where $|r|$ is the distance of the line to the origin and $\theta$ the angle of the normal vector, as shown in Figure \ref{lines_parametrization}. $theta$ is in $(-\frac{\pi}{2},\frac{\pi}{2}]$ and $r$ can be negative.
+For point coordinates, we simply use the default Java coordinate system, with $(0,0)$ in the upper-left corner, as shown in Figure \ref{coordinates}. All points have integer coordinates. Lines however, are parametrized over a pair of \texttt{double} values $(r,\theta)$ where $|r|$ is the distance of the line to the origin and $\theta$ the angle of the normal vector, as shown in Figure \ref{lines_parametrization}. In order to easily retrieve $\theta$ from $\sin\theta$, we chose to have $\theta\in\left]-\frac{\pi}{2},\frac{\pi}{2}\right]$ and the radius $r$ can be negative.
 \begin{figure}[h]
-\includegraphics[scale=0.5]{img/coordinates.png}
+\includegraphics[scale=0.7]{img/coordinates.png}
 \caption{$(x,y)$ coordinates for Java images}
 \label{coordinates}
 \end{figure}
@@ -134,13 +133,19 @@ In order to compute the PRST using the Monte Carlo algorithm for sparse function
 
 	\subsection{Adjustments for 2D}
 	
-\textit{	the polar issue, formulas different, etc...\\}
 
 The Monte Carlo algorithm we chose to use for computing the PRST requires to derive a change-of-variable weight for each pair of points $(x,x')$, accounting for the transformation between the discrete parametrization of lines over $(r,\theta)$ and the pairs of reflected points. In 3D, the change-of-variables weight is given by the following formula :
 \[w_{change-of-variables} = 2d^2\sin\theta\]
 However, since we are working in 2D, we need to recompute this weight in order to fit the new coordinates system. As in 3D, we compute the determinant of the Jacobian of the change-of-variables transformation. Let 
 \[\vec{n}=\begin{pmatrix}\cos\theta \\ \sin\theta\end{pmatrix}\]
-be the normal of the line of reflection, $d$ the distance between $x$ and $x'$, we can write :
+be the normal of the axis of reflection, $d$ the distance between $x$ and $x'$, we can write :
+
+\begin{SCfigure}
+\includegraphics[scale=0.6]{img/definitions.png}
+\caption{cartesian and polar coordinates}
+\label{definitions}
+\end{SCfigure}
+
 \begin{align*}
  d & = \lVert x-x' \rVert  \\
 & = 2(r-\vec{n}\cdot x) \\
@@ -163,6 +168,9 @@ Therefore, the Jacobian is
 and so the determinant is
 \[w_{change-of-variables} = |J| = 2d.\]
 
+We were initially suprised by the lack of dependence in $\theta$, contrary to the 3D formula given in the paper. However, noting that the cartesian-to-polar (2D) and cartesian-to-spherical(3D) change-of-variables jacobian determinants are respectively given by \[|J_{cartesian-to-polar}| = r=\frac{w_{2D-change-of-variables}}{2}\] and \[|J_{cartesian-to-spherical}|=r^2\sin\theta=\frac{w_{3D-change-of-variables}}{2}\] gives a good intuition on why there is such a descrepancy between the 2D and 3D weights. Finally, the 2D Monte Carlo estimator is given by :\[D(f,\gamma) = \frac{1}{N_{samp}} \sum_{i=1}^{N_{samp}}\frac{1}{2d}.\]
+
+
   	\subsection{Comments}
   	Choice of the 1/N factor in the calculus of D : explain that it comes out of the blue ... \\
   	
@@ -170,12 +178,67 @@ and so the determinant is
   	
   	
   	\section{Results}
-  		%TODO delete before saving
-\textit{· 1.5-2 pages of results. Show (especially in, graphs, screenshots, etc.) the results that you have obtained. Comment on discrepancies (if any) with the results shown in the paper. Comment on whether you had to tweak parameters to get good results and, if so, how you picked them.\\}
 
-	\section{Possible extensions}
-	
-\textit{· 0.5-1 pages of possible extensions. Can you suggest how the method can be improved? Can you suggest other application domains for your method?\\}
+We visualized the computed PRST applying a treashold proportional to the maximum PRST value, and tracing the lines corresponding to the strongest symmetries. The lines are traced in colors ranging from blue to red, with red for the stronger symmetries and blue for the weaker ones. We used an alpha channel to add transparency to the lines and allow the original image to show through, as well as making areas with high density of lines more legible. Figure \ref{visualization} shows a few examples of computed PRST.
+
+\begin{figure}[h]
+        \centering
+        \begin{subfigure}{120 pt}
+                \includegraphics[height=120 pt]{img/carre2_5000.png}
+                \caption{square}
+                \label{square}
+        \end{subfigure}
+        ~
+        \begin{subfigure}{120 pt}
+                \includegraphics[height = 120pt]{img/carre3_5000_bis.png}
+                \caption{bumped square}
+                \label{bump_square}
+        \end{subfigure}
+       
+       ~\\
+	\begin{subfigure}{120 pt}
+	 \includegraphics[height=120 pt]{img/sample_1000_seuil_07.png}
+	 \caption{the letter a}
+                \label{a}
+                   \end{subfigure}
+	~
+	\begin{subfigure}{120 pt}
+	 \includegraphics[height=120 pt]{img/n_32_sample2000_seuil06.png}
+	 \caption{a starfish}
+                \label{star}
+              \end{subfigure}     
+                \caption{Visualizations of the PRST for several 2D outlines}
+	\label{visualization}
+\end{figure}
+
+One of the main claims of PRST is its stability and insensibility to noise. We empirically tested the claim by comparing the PRST visualization of a square and a modified version of the square with a small bump added to the outline. As can be seen in Figure \ref{square} and Figure \ref{bump_square}, the two inputs yield similar results. The PRST is also good at detecting approximate symetries, and we had fairly good results with the image of a starfish (Figure \ref{star}).
+
+\begin{figure}[h]
+\centering
+ \includegraphics[scale = 0.7]{img/n_16_sample_1000.png}
+ \caption{Example of "overbearing" local symetries}
+ \label{thick_square}
+\end{figure}
+
+However, our implementation presents a few weaknesses. Some local symetries appear with too much emphasis, in particular for input images containing thick straight lines. Figure \ref{thick_square} gives a good example of the phenomenon : the local symetries of the four sides of the squares appear to have a higher PRST than the main axis of symetry. We believe it is due to the $\frac{1}{2d}$ term in $D(f,\gamma)$ giving too much importance to local symetries in dense areas. The phenomenon persists even with a sampling size as high as 10,000 points, suggesting that sampling size is unable to compensate for the weight given to closer pairs of points.
+
+The threashold method for visualizing the PRST is also imperfect. In order to obtain legible results, we need to tweak the threashold value for every change of input image or sample size. Despite the $\frac{1}{N_{samp}}$ normalization, there is no "universal" threashold one can use to discriminate strong symetries from weak symetries in an image. For input images containing numerous axes of symetry, this results in difficult to read visualization (see Figure \ref{rosace}, since a high number of axes will have a PRST value close to the maximum. Figure \ref{rosace 2} shows that using a higher threashold does not give better results.
+
+\begin{figure}[h]
+\centering
+ \includegraphics[scale = 0.7]{img/rosace_5000.png}
+ \caption{Visualization of PRST values of an image with a high number of symmetries}
+ \label{rosace}
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
+ \includegraphics[scale = 0.7]{img/rosace_2000_seuil08.png}
+ \caption{Visualization of PRST values of an image with a high number of symmetries, with a threashold of $0.8max$}
+ \label{rosace 2}
+\end{figure}
+
 
 	\section*{Conclusion}
 \addcontentsline{toc}{section}{Conclusion}

@@ -183,7 +183,7 @@ public class PRST {
 		}
 
 		//max = (1+max)/2;
-		double s = 0.3*max;
+		double s = 0.8*max;
 		for (Droite d : prst.keySet()){
 			//double valeur = (1+prst.get(d))/2;
 			double valeur = prst.get(d);
