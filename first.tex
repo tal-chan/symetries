@@ -7,9 +7,15 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{amsfonts,amssymb}
+<<<<<<< HEAD
 \usepackage{sidecap}
 \usepackage{subcaption}
 
+=======
+\usepackage{xcolor}
+\usepackage{pict2e}
+\usepackage{tikz} %Dessins
+>>>>>>> 732971eada49fcc5f074beee6bb6e579d7ecc2b2
 % Mise en page
 \usepackage{geometry}
 \geometry{a4paper,twoside,left=2.5cm,right=2.5cm,top=2.8cm,bottom=2.8cm} %taille et marges
@@ -111,15 +117,19 @@ so that $f(p)=0$ for white pixels, i.e. empty space.
 For point coordinates, we simply use the default Java coordinate system, with $(0,0)$ in the upper-left corner, as shown in Figure \ref{coordinates}. All points have integer coordinates. Lines however, are parametrized over a pair of \texttt{double} values $(r,\theta)$ where $|r|$ is the distance of the line to the origin and $\theta$ the angle of the normal vector, as shown in Figure \ref{lines_parametrization}. In order to easily retrieve $\theta$ from $\sin\theta$, we chose to have $\theta\in\left]-\frac{\pi}{2},\frac{\pi}{2}\right]$ and the radius $r$ can be negative.
 \begin{figure}[h]
 \includegraphics[scale=0.7]{img/coordinates.png}
-\caption{$(x,y)$ coordinates for Java images}
-\label{coordinates}
-\end{figure}
+
 \begin{figure}[h]
-\includegraphics[scale=0.7]{img/lines.png}
+\input{figCoord}
+>>>>>>> 732971eada49fcc5f074beee6bb6e579d7ecc2b2
+\caption{$(x,y)$ coordinates for Java images}
+\label{coordinates}	
+\end{figure}
+
+\begin{figure}[h]	
+\input{figLines}	
 \caption{$(r,\theta)$ parametrization of lines}
 \label{lines_parametrization}
 \end{figure}
-
 
 	\subsection{Sampling}
 In order to compute the PRST using the Monte Carlo algorithm for sparse functions, we first perform an importance sampling of points in the image, using $f(x)$  as the probability density of selecting $x$. For this, we use the cumulative sum of $f(x)$ over the image as the cumulative distribution function and perform an inverse transform sampling. Usually, this method works by generating a real number $u$ in range [0,1] and computing $F^{-1}(u)$, where $F$ is a cumulative distribution function. Here, we adapted the method to work with non-normalized integer functions :
@@ -242,6 +252,7 @@ The threashold method for visualizing the PRST is also imperfect. In order to ob
 
 	\section*{Conclusion}
 \addcontentsline{toc}{section}{Conclusion}
+We have implemented the Monte Carlo algorithm to calculate a discrete version of the planar reflective symmetry transform for 2D shapes, by adapting the 3D method in 2D. We managed to perform an efficient sampling according to the density of points in the image. Then we selected pairs of sampled points and voted for the most accurate bin of planes between them. We managed to obtain good results namely high PRST values corresponding to symmetry axes in the original picture. As a result, we measured the symmetry of an object with respect to all planes in a discrete space. Computer graphics benefit from that type of symmetry information, which allows a certain efficiency and economy in shape processing.
 
 \addcontentsline{toc}{section}{References} 
 \nocite{*}
