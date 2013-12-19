@@ -1,3 +1,6 @@
+import java.awt.Graphics;
+import java.awt.Color;
+
 public class Point {
 
 	public int x, y;
@@ -35,6 +38,15 @@ public class Point {
 		double dX = ((double) p2.getX()) - x;
 		double dY = ((double) p2.getY()) - y;
 		return Math.sqrt(dX * dX + dY * dY);
+	}
+	
+	public void draw(Graphics g){
+		g.drawLine(x, y, x, y);
+	}
+	
+	public void draw(Graphics g, Color c){
+		g.setColor(c);
+		g.drawLine(x, y, x, y);
 	}
 
 	public String toString() {

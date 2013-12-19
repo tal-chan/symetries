@@ -84,6 +84,7 @@ public class Droite {
 	
 	public Droite paquet(int n) {
 		int rayon = (int) Math.round(r);
+		// les angles des droites sont entre -pi/2 et pi/2, un simple asin suffit pour recuperer l'angle.
 		double theta = Math.asin(sinTheta);
 		double k = Math.round(n*theta/(2*Math.PI));
 		theta = 2*k*Math.PI/n;

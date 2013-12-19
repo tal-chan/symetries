@@ -103,12 +103,10 @@ In the end, we obtain
 D(f,\gamma) = \frac{1}{N_{samp}} \sum_{i=1}^{N_{samp}}\frac{1}{2d^2\sin\theta}
 \label{equation_finale}
 \end{equation} 
-<<<<<<< HEAD
 
         
         \section{Our implementation}
-=======
->>>>>>> f340298eb6fc4e13d1bf3b78db26975b2dc4ceaa
+
 
         \subsection {Conventions and Notations}
 We chose to use classic image formats (png, jpg) as input files as they are naturally rasterized. For more simplicity we only considered grayscale images. Since the method we are implementing is taking advantage of sparsity in the function, a typical input image would be a black and white outline (see Figure \ref{exemple_carre}). The Java class \texttt{BufferedImage} provides an easy way to access such images and manipulate them as arrays of integers between 0 and 255. 
@@ -189,29 +187,15 @@ and so the determinant is
 We were initially suprised by the lack of dependence in $\theta$, contrary to the 3D formula given in the paper. However, noting that the cartesian-to-polar (2D) and cartesian-to-spherical(3D) change-of-variables jacobian determinants are respectively given by \[|J_{cartesian-to-polar}| = r=\frac{w_{2D-change-of-variables}}{2}\] and \[|J_{cartesian-to-spherical}|=r^2\sin\theta=\frac{w_{3D-change-of-variables}}{2}\] gives a good intuition on why there is such a descrepancy between the 2D and 3D weights. Finally, the 2D Monte Carlo estimator is given by :\[D(f,\gamma) = \frac{1}{N_{samp}} \sum_{i=1}^{N_{samp}}\frac{1}{2d}.\]
 
 
-<<<<<<< HEAD
-          \subsection{Comments}
-          \label{comments}
-          The value $N_{samp}$ used in formula~\eqref{equation_finale} is not clearly defined. We find it not consistent that it is both the normalization factor and the terminal of the sum. This normalization of $f$ may used to obtain equation ~\eqref{equation}. In that case, the terminal of the sum would be the number of pairs that voted for the bin and not the total number of points.\\
-          
-          Bounds : la valeur du prst (monte carlo) obtenue telle qu'on le fait dépend complètement de l'unité de longueur qu'on utilise pour calculer les distance x,x'. Du coup on n'a vraiment aucune garantie sur les bornes du prst Monte Carlo, contrairement au prst complet...\\
-          
-        The PRST obtained by Monte Carlo algorithm seems to depend on the unit chosen. The way we calculated it -- using a pixel as a unit -- the Monte Carlo indicator $D$ is  between 0 and 1 but it was implicit. Thus, if we calculate $PRST^2(f,\gamma) = \frac{1 + D(f,\gamma)}{2}$ the bounds are not 0 and 1, which is why we used D as if it was PRST. Beyond this issue, we have very low values in any case.
-          
-          
-          \section{Results}
-=======
+
   	\subsection{Comments}
   	\label{comments}
-  	The value $N_{samp}$ used in formula~\eqref{equation_finale} is not clearly defined. We find it not consistent that it is both the normalization factor and the terminal of the sum. This normalization of $f$ may used to obtain equation ~\eqref{equation}. In that case, the terminal of the sum would be the number of pairs that voted for the bin and not the total number of points.\\
-  	
-  	Bounds : la valeur du prst (monte carlo) obtenue telle qu'on le fait dépend complètement de l'unité de longueur qu'on utilise pour calculer les distance x,x'. Du coup on n'a vraiment aucune garantie sur les bornes du prst Monte Carlo, contrairement au prst complet...\\
+  	The value $N_{samp}$ used in formula~\eqref{equation_simplifiee} is not clearly defined. We find it not consistent that it is both the normalization factor and the terminal of the sum. This normalization of $f$ may used to obtain equation ~\eqref{equation_simplifiee}. In that case, the terminal of the sum would be the number of pairs that voted for the bin and not the total number of points.\\
   	
 	The PRST obtained by Monte Carlo algorithm seems to depend on the unit chosen. The way we calculated it -- using a pixel as a unit -- the Monte Carlo indicator $D$ is  between 0 and 1 but it was implicit. Thus, if we calculate $PRST^2(f,\gamma) = \frac{1 + D(f,\gamma)}{2}$ the bounds are not 0 and 1, which is why we used D as if it was PRST. Beyond this issue, we have very low values in any case.
   	
   	
   	\section{Results}
->>>>>>> f340298eb6fc4e13d1bf3b78db26975b2dc4ceaa
 
 We visualized the computed PRST applying a treashold proportional to the maximum PRST value, and tracing the lines corresponding to the strongest symmetries. The lines are traced in colors ranging from blue to red, with red for the stronger symmetries and blue for the weaker ones. We used an alpha channel to add transparency to the lines and allow the original image to show through, as well as making areas with high density of lines more legible. Figure \ref{visualization} shows a few examples of computed PRST.
 

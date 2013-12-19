@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
@@ -50,6 +52,14 @@ public class Sampling {
 			points[k]=new Point(j,i);			
 		}
 		
+	}
+	
+	public void visualize(Graphics g){
+		g.drawImage(img.img, 0, 0, null);
+		for (int i=0;i<size;i++){
+			Color c = Color.RED;
+			points[i].draw(g, c);
+		}
 	}
 	
 	public static void main (String[] args){
