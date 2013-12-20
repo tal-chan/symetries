@@ -23,9 +23,9 @@ public class BasicFrame extends JFrame {
 
 	
 	public void paint(Graphics g) {
-		//testPRST(g);
+		testPRST(g);
 		//paquet(g);
-		sampling(g);
+		//sampling(g);
 		//testPaquet(g);
 
 
@@ -33,7 +33,7 @@ public class BasicFrame extends JFrame {
 
 	public void testPRST(Graphics g){
 		PRST prst = new PRST(file,size);
-		prst.compute(30);
+		prst.compute(N);
 		prst.visualize(g, th);
 	}
 	
@@ -67,15 +67,17 @@ public class BasicFrame extends JFrame {
 
 	public static void main(String arg[]) {
 		double th = .5;
-		int size = 1000;
-		int N=30;
-		String file = "src/carre.png";
+		int size = 4000;
+		int N=60;
+		//String file = "src/carre.png";
+		String file = "src/voiture.png";
 		//String file = "src/voiture.gif";
+		//String file = "src/pentagon.png";
 		
 		
 		BasicFrame frame = new BasicFrame(th,size,N,file);
 
-		frame.setSize(300, 300);
+		frame.setSize(500, 300);
 
 		frame.setVisible(true);
 	}
